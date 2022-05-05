@@ -1,0 +1,11 @@
+#!/bin/bash
+
+ping -w 60 -c 1 8.8.8.8
+
+sleep 5
+
+ping -w 60 -c 1 8.8.8.8
+
+curl https://releases.rancher.com/install-docker/20.10.sh | sh
+
+sed -i "/153::53/d" /etc/netplan/01-netcfg.yaml && netplan apply

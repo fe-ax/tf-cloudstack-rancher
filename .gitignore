@@ -2,4 +2,8 @@
 terraform.tfstate*
 *.log
 locals.tf
-kubeconfig.yaml
+kubeconfig*
+testing.tfvars
+*rsa*
+TODO
+rancher_password

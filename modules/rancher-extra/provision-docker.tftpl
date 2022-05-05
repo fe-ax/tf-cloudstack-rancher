@@ -1,0 +1,28 @@
+#!/bin/bash
+
+ping -w 30 -c 1 8.8.8.8
+
+sleep 5
+
+ping -w 30 -c 1 8.8.8.8
+
+curl https://releases.rancher.com/install-docker/20.10.sh | sh
+
+sed -i "/153::53/d" /etc/netplan/01-netcfg.yaml && netplan apply
+
+ping -w 30 -c 1 8.8.8.8
+
+sleep 5
+
+ping -w 30 -c 1 8.8.8.8
+
+mkdir /etc/multipath/conf.d
+cat << EOF > /etc/multipath/conf.d/drbd.conf
+blacklist {
+        devnode "^drbd[0-9]+"
+}
+EOF
+
+systemctl restart multipathd
+
+${node_command} ${etcd ? "--etcd" : ""} ${worker ? "--worker" : ""} ${controlplane ? "--controlplane" : ""}
