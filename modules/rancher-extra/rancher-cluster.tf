@@ -25,6 +25,12 @@ resource "rancher2_cluster" "extra_cluster" {
           }
         }
       }
+      kube_controller {
+        extra_args = {
+          cluster-signing-cert-file = "/etc/kubernetes/ssl/kube-ca.pem"
+          cluster-signing-key-file  = "/etc/kubernetes/ssl/kube-ca-key.pem"
+        }
+      } 
     }
     upgrade_strategy {
       drain                  = true

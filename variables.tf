@@ -22,14 +22,15 @@ variable "cloud_local_cluster" {
 
 variable "cloud_extra_cluster" {
   type = object({
-    count_cp            = number
-    count_worker        = number
-    service_offering    = string
-    network_id          = string
-    template            = string
-    zone                = string
-    root_disk_size      = number
-    extra_disk_offering = string
+    count_cp              = number
+    count_worker          = number
+    service_offering      = string
+    network_id            = string
+    template              = string
+    zone                  = string
+    root_disk_size_cp     = number
+    root_disk_size_worker = number
+    extra_disk_offering   = string
   })
   description = "The settings for extra-cluster VM's in CloudStack"
 }

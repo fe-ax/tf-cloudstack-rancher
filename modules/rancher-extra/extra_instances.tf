@@ -9,7 +9,7 @@ resource "cloudstack_instance" "extra_cluster_nodes_cps" {
   keypair            = cloudstack_ssh_keypair.extra_cluster_key.id
   expunge            = true
   security_group_ids = [cloudstack_security_group.extra_cluster_SG.id]
-  root_disk_size     = var.cloud_extra_cluster.root_disk_size
+  root_disk_size     = var.cloud_extra_cluster.root_disk_size_cp
   user_data = templatefile(
     "${path.module}/provision-docker.tftpl", {
       node_command = rancher2_cluster.extra_cluster.cluster_registration_token[0].node_command,
@@ -18,6 +18,12 @@ resource "cloudstack_instance" "extra_cluster_nodes_cps" {
       controlplane = true
     }
   )
+
+  lifecycle {
+      ignore_changes = [
+          user_data,
+      ]
+  }
 
   connection {
     type        = "ssh"
@@ -47,7 +53,7 @@ resource "cloudstack_instance" "extra_cluster_nodes_workers" {
   keypair            = cloudstack_ssh_keypair.extra_cluster_key.id
   expunge            = true
   security_group_ids = [cloudstack_security_group.extra_cluster_SG.id]
-  root_disk_size     = var.cloud_extra_cluster.root_disk_size
+  root_disk_size     = var.cloud_extra_cluster.root_disk_size_worker
   user_data = templatefile(
     "${path.module}/provision-docker.tftpl", {
       node_command = rancher2_cluster.extra_cluster.cluster_registration_token[0].node_command,
@@ -56,6 +62,12 @@ resource "cloudstack_instance" "extra_cluster_nodes_workers" {
       controlplane = false
     }
   )
+
+  lifecycle {
+      ignore_changes = [
+          user_data,
+      ]
+  }
 
   connection {
     type        = "ssh"

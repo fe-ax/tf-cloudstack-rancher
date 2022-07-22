@@ -1,0 +1,12 @@
+sed -i "/2a00:f10:ff04:153::53/d" /etc/netplan/01-netcfg.yaml && netplan apply
+
+mkdir /etc/multipath/conf.d
+cat << EOF > /etc/multipath/conf.d/drbd.conf
+blacklist {
+        devnode "^drbd[0-9]+"
+}
+EOF
+
+systemctl restart multipathd
+
+apt-get install -y linux-headers-$(uname -r)

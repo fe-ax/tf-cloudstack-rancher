@@ -16,14 +16,15 @@ cloud_local_cluster = {
 }
 
 cloud_extra_cluster = {
-  count_cp            = 3
-  count_worker        = 3
-  service_offering    = ""
-  network_id          = ""
-  template            = "Ubuntu 20.04"
-  zone                = ""
-  root_disk_size      = 20
-  extra_disk_offering = ""
+  count_cp              = 3
+  count_worker          = 3
+  service_offering      = ""
+  network_id            = ""
+  template              = "Ubuntu 20.04"
+  zone                  = ""
+  root_disk_size_cp     = 20
+  root_disk_size_worker = 40
+  extra_disk_offering   = ""
 }
 
 transip = {

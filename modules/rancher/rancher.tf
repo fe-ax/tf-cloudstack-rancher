@@ -4,6 +4,7 @@ resource "helm_release" "rancher" {
   chart      = "rancher"
   repository = "https://releases.rancher.com/server-charts/stable"
   depends_on = [helm_release.cert_manager]
+  version    = "2.6.5"
 
   wait             = true
   create_namespace = true

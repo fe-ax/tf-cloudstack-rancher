@@ -31,3 +31,6 @@ resource "null_resource" "wait-for-rollout" {
     interpreter = ["/bin/sh", "-c"]
   }
 }
+
+
+
